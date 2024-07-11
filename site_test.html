@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site de Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #coin-counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div id="coin-counter">Pièces: 0</div>
+
+    <script>
+        // Simulation de compteur de pièces
+        let coins = 0;
+        const coinCounter = document.getElementById('coin-counter');
+
+        function addCoins(amount) {
+            coins += amount;
+            coinCounter.textContent = `Pièces: ${coins}`;
+        }
+
+        // Ajouter des pièces chaque fois qu'une quête est complétée
+        // Simulons une quête toutes les 5 secondes
+        setInterval(() => {
+            addCoins(10);
+        }, 5000);
+
+        // Écouter les messages venant de l'autre site pour mettre à jour les pièces
+        window.addEventListener('message', (event) => {
+            if (event.data.type === 'addCoins') {
+                addCoins(event.data.amount);
+            }
+        }, false);
+    </script>
+</body>
+</html>
